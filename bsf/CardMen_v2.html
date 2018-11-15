@@ -34,12 +34,12 @@ label[for] {
         margin-right: 20px;
 }
 label[for^='PL']    { width: 120px; }
-label[for^='H']     { width: 100px; }
+label[for^='SC']    { width: 100px; }
 label[for^='Foot']  { width: 40px; }
 
-input                          { border: none; }
-input:disabled { color: #000000; background: #F0F0F0; }
-input[id^='H'], input[id^='A'] { text-align: center; }
+input              { border: none; }
+input:disabled     { color: #000000; background: #F0F0F0; }
+input[id^='SC']    { text-align: center; }
 
 .home {
 	display: block;
@@ -101,8 +101,8 @@ input[id^='H'], input[id^='A'] { text-align: center; }
   <option value="14">August 13th</option>
 </select>
 &nbsp&nbsp
-<select id="Division" name="Division" onchange="update_teams()">
-  <option selected="selected">Select Division ...</option>
+<select id="Division" name="Division" onchange="update_teams(div_mens)">
+  <option value="" selected="selected">Select Division ...</option>
   <option value="1">Division 1</option>
   <option value="2">Division 2</option>
   <option value="3">Division 3</option>
@@ -111,84 +111,85 @@ input[id^='H'], input[id^='A'] { text-align: center; }
   <option value="6">Division 6</option>
   <option value="7">Division 7</option>
 </select><br/><br/>
-<select id="HT" name="HT" size="1" onchange="update_players(value, 'M', 1, 6)">
+<select id="HT" name="HT" size="1" onchange="update_players(value, 'PLHM6')">
   <option selected="selected">Select Home Team ...</option>
   <option>Select Division First!</option>
 </select>
 <label>vs</label>
-<select id="AT" name="AT" size="1" onchange="update_players(value, 'M', 7, 12)">
+<select id="AT" name="AT" size="1" onchange="update_players(value, 'PLAM6')">
   <option selected="selected">Select Away Team ...</option>
   <option>Select Division First!</option>
 </select>
 <br/><hr/><br/>
-<label for="PL1">Home Player 1:</label>
-<input id="PL1" name="HP1" type="text" size="30" maxlength="30"/><br/>
-<label for="PL2">Home Player 2:</label>
-<input id="PL2" name="HP2" type="text" size="30" maxlength="30"/><br/>
-<label for="PL3">Home Player 3:</label>
-<input id="PL3" name="HP3" type="text" size="30" maxlength="30"/><br/>
-<label for="PL4">Home Player 4:</label>
-<input id="PL4" name="HP4" type="text" size="30" maxlength="30"/><br/>
-<label for="PL5">Home Player 5:</label>
-<input id="PL5" name="HP5" type="text" size="30" maxlength="30"/><br/>
-<label for="PL6">Home Player 6:</label>
-<input id="PL6" name="HP6" type="text" size="30" maxlength="30"/><br/>
+<label for="PLHM1">Home Player 1:</label>
+<input id="PLHM1" name="HP1" type="text" size="30" maxlength="30"/><br/>
+<label for="PLHM2">Home Player 2:</label>
+<input id="PLHM2" name="HP2" type="text" size="30" maxlength="30"/><br/>
+<label for="PLHM3">Home Player 3:</label>
+<input id="PLHM3" name="HP3" type="text" size="30" maxlength="30"/><br/>
+<label for="PLHM4">Home Player 4:</label>
+<input id="PLHM4" name="HP4" type="text" size="30" maxlength="30"/><br/>
+<label for="PLHM5">Home Player 5:</label>
+<input id="PLHM5" name="HP5" type="text" size="30" maxlength="30"/><br/>
+<label for="PLHM6">Home Player 6:</label>
+<input id="PLHM6" name="HP6" type="text" size="30" maxlength="30"/><br/>
 <hr><br>
-<label for="PL7">Away Player 1:</label>
-<input id="PL7" name="AP1" type="text" size="30" maxlength="30"/><br/>
-<label for="PL8">Away Player 2:</label>
-<input id="PL8" name="AP2" type="text" size="30" maxlength="30"/><br/>
-<label for="PL9">Away Player 3:</label>
-<input id="PL9" name="AP3" type="text" size="30" maxlength="30"/><br/>
-<label for="PL10">Away Player 4:</label>
-<input id="PL10" name="AP4" type="text" size="30" maxlength="30"/><br/>
-<label for="PL11">Away Player 5:</label>
-<input id="PL11" name="AP5" type="text" size="30" maxlength="30"/><br/>
-<label for="PL12">Away Player 6:</label>
-<input id="PL12" name="AP6" type="text" size="30" maxlength="30"/><br/>
+<label for="PLAM1">Away Player 1:</label>
+<input id="PLAM1" name="AP1" type="text" size="30" maxlength="30"/><br/>
+<label for="PLAM2">Away Player 2:</label>
+<input id="PLAM2" name="AP2" type="text" size="30" maxlength="30"/><br/>
+<label for="PLAM3">Away Player 3:</label>
+<input id="PLAM3" name="AP3" type="text" size="30" maxlength="30"/><br/>
+<label for="PLAM4">Away Player 4:</label>
+<input id="PLAM4" name="AP4" type="text" size="30" maxlength="30"/><br/>
+<label for="PLAM5">Away Player 5:</label>
+<input id="PLAM5" name="AP5" type="text" size="30" maxlength="30"/><br/>
+<label for="PLAM6">Away Player 6:</label>
+<input id="PLAM6" name="AP6" type="text" size="30" maxlength="30"/><br/>
 <hr><br>
+<div onclick="select_input(event.target)"
+     onchange="update_set_totals(9)"
+     oninput="check(event.target)">
 <label>Enter results; H then A</label><br/><br/>
-<label for="H1">1v1</label>
-<input id="H1" name="H1" type="text" size="2" maxlength="1" onclick="select()" oninput="check(this)"/>&nbsp;-
-<input id="A1" name="A1" type="text" size="2" maxlength="1" onclick="select()" oninput="check(this)"/><br/>
-<label for="H2">1v2</label>
-<input id="H2" name="H2" type="text" size="2" maxlength="1" onclick="select()" oninput="check(this)"/>&nbsp;-
-<input id="A2" name="A2" type="text" size="2" maxlength="1" onclick="select()" oninput="check(this)"/><br/>
-<label for="H3">1v3</label>
-<input id="H3" name="H3" type="text" size="2" maxlength="1" onclick="select()" oninput="check(this)"/>&nbsp;-
-<input id="A3" name="A3" type="text" size="2" maxlength="1" onclick="select()" oninput="check(this)"/><br/>
-<label for="H4">2v1</label>
-<input id="H4" name="H4" type="text" size="2" maxlength="1" onclick="select()" oninput="check(this)"/>&nbsp;-
-<input id="A4" name="A5" type="text" size="2" maxlength="1" onclick="select()" oninput="check(this)"/><br/>
-<label for="H5">2v2</label>
-<input id="H5" name="H5" type="text" size="2" maxlength="1" onclick="select()" oninput="check(this)"/>&nbsp;-
-<input id="A5" name="A5" type="text" size="2" maxlength="1" onclick="select()" oninput="check(this)"/><br/>
-<label for="H6">2v3</label>
-<input id="H6" name="H6" type="text" size="2" maxlength="1" onclick="select()" oninput="check(this)"/>&nbsp;-
-<input id="A6" name="A6" type="text" size="2" maxlength="1" onclick="select()" oninput="check(this)"/><br/>
-<label for="H7">3v1</label>
-<input id="H7" name="H7" type="text" size="2" maxlength="1" onclick="select()" oninput="check(this)"/>&nbsp;-
-<input id="A7" name="A7" type="text" size="2" maxlength="1" onclick="select()" oninput="check(this)"/><br/>
-<label for="H8">3v2</label>
-<input id="H8" name="H8" type="text" size="2" maxlength="1" onclick="select()" oninput="check(this)"/>&nbsp;-
-<input id="A8" name="A8" type="text" size="2" maxlength="1" onclick="select()" oninput="check(this)"/><br/>
-<label for="H9">3v3</label>
-<input id="H9" name="H9" type="text" size="2" maxlength="1" onclick="select()" oninput="check(this)"/>&nbsp;-
-<input id="A9" name="A9" type="text" size="2" maxlength="1" onclick="select()" oninput="check(this)"/><br/>
+<label for="SCH1">1v1</label>
+<input id="SCH1" name="H1" type="text" size="2" maxlength="1"/>&nbsp;-
+<input id="SCA1" name="A1" type="text" size="2" maxlength="1"/><br/>
+<label for="SCH2">1v2</label>
+<input id="SCH2" name="H2" type="text" size="2" maxlength="1"/>&nbsp;-
+<input id="SCA2" name="A2" type="text" size="2" maxlength="1"/><br/>
+<label for="SCH3">1v3</label>
+<input id="SCH3" name="H3" type="text" size="2" maxlength="1"/>&nbsp;-
+<input id="SCA3" name="A3" type="text" size="2" maxlength="1"/><br/>
+<label for="SCH4">2v1</label>
+<input id="SCH4" name="H4" type="text" size="2" maxlength="1"/>&nbsp;-
+<input id="SCA4" name="A5" type="text" size="2" maxlength="1"/><br/>
+<label for="SCH5">2v2</label>
+<input id="SCH5" name="H5" type="text" size="2" maxlength="1"/>&nbsp;-
+<input id="SCA5" name="A5" type="text" size="2" maxlength="1"/><br/>
+<label for="SCH6">2v3</label>
+<input id="SCH6" name="H6" type="text" size="2" maxlength="1"/>&nbsp;-
+<input id="SCA6" name="A6" type="text" size="2" maxlength="1"/><br/>
+<label for="SCH7">3v1</label>
+<input id="SCH7" name="H7" type="text" size="2" maxlength="1"/>&nbsp;-
+<input id="SCA7" name="A7" type="text" size="2" maxlength="1"/><br/>
+<label for="SCH8">3v2</label>
+<input id="SCH8" name="H8" type="text" size="2" maxlength="1"/>&nbsp;-
+<input id="SCA8" name="A8" type="text" size="2" maxlength="1"/><br/>
+<label for="SCH9">3v3</label>
+<input id="SCH9" name="H9" type="text" size="2" maxlength="1"/>&nbsp;-
+<input id="SCA9" name="A9" type="text" size="2" maxlength="1"/><br/>
+</div>
 <hr/><br/>
-<label for="HRT">Match score:</label>
-<input id="HRT" name="HRT" type="text" size="2" maxlength="1" disabled/>&nbsp;-
-<input id="ART" name="ART" type="text" size="2" maxlength="1" disabled/><br/>
+<label for="SCH">Match score:</label>
+<input id="SCH" name="HRT" type="text" size="2" maxlength="1" disabled/>&nbsp;-
+<input id="SCA" name="ART" type="text" size="2" maxlength="1" disabled/><br/>
 <hr/>
-<p>
-  <label for="remarks">Any remarks or comments?</label><br/>
-  <textarea id="remarks" name="remarks" cols="50" rows="3"></textarea><br/><br/>
-  <label for="FootName">Name:</label>
-  <input id="Name" name="Name" type="text" size="40" maxlength="40"><br/>
-  <label for="FootTel">Tel:</label>
-  <input id="FootTel" name="Tel" type="text" size="40" maxlength="40">
-</p>
-
+<label for="remarks">Any remarks or comments?</label><br/>
+<textarea id="remarks" name="remarks" cols="50" rows="3"></textarea><br/><br/>
+<label for="FootName">Name:</label>
+<input id="Name" name="Name" type="text" size="40" maxlength="40"/><br/>
+<label for="FootTel">Tel:</label>
+<input id="FootTel" name="Tel" type="text" size="40" maxlength="40"/>
 <p>
   <input class="btn" name="submit" type="submit" value="Submit">
 </p>

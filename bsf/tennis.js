@@ -23,7 +23,7 @@ var code_to_club = {
     "WIN" : "Winton"
 };
 
-var div_spec = [["CHO A", "DLC A", "ELL A", "HOL A", "LEI A", "LOS A", "MAR A", "TYL A"],
+var div_mens = [["CHO A", "DLC A", "ELL A", "HOL A", "LEI A", "LOS A", "MAR A", "TYL A"],
                 ["DAR A", "DLB A", "DLB B", "DLC B", "ELL B", "ELT A", "HAW A", "WAL A"],
                 ["BAR A", "EAG A", "HOL B", "LEI B", "LOS B", "MAR B", "ROE A", "WIN"  ],
                 ["BRA A", "CHO B", "CLA A", "DLB C", "DLB D", "EAG B", "HAW B", "WAL B"],
@@ -31,7 +31,7 @@ var div_spec = [["CHO A", "DLC A", "ELL A", "HOL A", "LEI A", "LOS A", "MAR A", 
                 ["BAR B", "BRA C", "CHO C", "EAG C", "ELL C", "HAW D", "HOL C", "TYL B"],
                 ["EAG D", "HAW E", "HOL D", "LOS D", "MAR D", "MEA B", "ROE B"]];
 
-function update_teams() {
+function update_teams(div_spec) {
 
     var i;
 
@@ -80,48 +80,75 @@ function won_set(p1, p2) {
     var g1 = document.getElementById(p1).value;
     var g2 = document.getElementById(p2).value;
 
-    return (g1 > g2) && (g1 == 6 || g1 == 8);
+    return g1 > g2 && (g1 == 6 || g1 == 8);
 }
       
-function update_scores() {
+function update_set_totals(n) {
 
     var home = 0;
     var away = 0;
     
-    for (var i = 1; i <= 9; i++) {
-	home += won_set("H" + i, "A" + i);
-	away += won_set("A" + i, "H" + i);	
+    for (var i = 1; i <= n; i++) {
+	home += won_set("SCH" + i, "SCA" + i);
+	away += won_set("SCA" + i, "SCH" + i);	
     }
 
-    document.getElementById("HRT").value = home; 
-    document.getElementById("ART").value = away;
-}
-    
-function check(element) {
-    if(/[0-6]/.test(element.value)) {
-	update_scores();
-	while (element = element.nextSibling)
-	    if (element instanceof HTMLInputElement) {
-		element.focus();
-		element.select();
-		break;
-	    }
-    } else
-	element.value = '';
+    document.getElementById("SCH").value = home; 
+    document.getElementById("SCA").value = away;
 }
 
-function update_players(teamname, jsfm, start, end) {
+function update_game_totals() {
+
+    var home = 0;
+    var away = 0;
+    
+    for (var i = 1; i <= 12; i++) {
+	home += parseInt(document.getElementById("SCH" + i).value);
+	away += parseInt(document.getElementById("SCA" + i).value);
+    }
+
+    document.getElementById("SCH").value = home; 
+    document.getElementById("SCA").value = away;
+}
+    
+function select_input(element) {
+    if (element instanceof HTMLInputElement)
+	element.select();
+}
+
+function check(element) {
+    if (element instanceof HTMLInputElement) {
+	if (/[0-6]/.test(element.value)) {
+	    while (element = element.nextSibling)
+		if (element instanceof HTMLInputElement) {
+		    element.focus();
+		    element.select();
+		    return;
+		}
+	    document.activeElement.blur();
+	} else
+	    element.value = '';
+    }
+}
+
+function update_players(teamname, last_input) {
+
+    var prefix = "#" + last_input.slice(0, -1);
+    var num    = parseInt(last_input.slice(-1));
+    var jsfm   = last_input.slice(2, -1);
+
     var suffix = teamname.slice(-2);
     if (   suffix == " A" || suffix == " B" || suffix == " C"
 	|| suffix == " D" || suffix == " E" || suffix == " F")
 	clubname = teamname.slice(0, -2);
     else
 	clubname = teamname;
+    
     var args = { clubname : clubname, jsfm : jsfm };
     $.post("players.php", args, null, 'json').done(
 	function(data) {
-	    for (var i = start; i <= end; i++)
-		$("#PL" + i).autocomplete({ source : data });
+	    for (var i = 1; i <= num; i++)
+		$(prefix + i).autocomplete({ source : data });
 	}
     );
 }
