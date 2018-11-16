@@ -5,7 +5,7 @@ var code_to_club = {
     "CHO" : "Chorley",
     "CLA" : "Claremont",
     "DAR" : "Darwen",
-    "DLB" : "DL Bolton Arbitare",
+    "DLB" : "DL Bolton Abitare",
     "DLC" : "DL Chorley",
     "EAG" : "Eagley",
     "ELL" : "Ellesmere",
@@ -14,6 +14,7 @@ var code_to_club = {
     "HAW" : "Hawkshaw",
     "LEI" : "Leigh",
     "LOS" : "Lostock",
+    "LON" : "Longsight St Catherine's",
     "MAR" : "Markland Hill",
     "MEA" : "Meadow Hill",
     "MON" : "Monton",
@@ -31,6 +32,12 @@ var div_mens = [["CHO A", "DLC A", "ELL A", "HOL A", "LEI A", "LOS A", "MAR A", 
                 ["BAR B", "BRA C", "CHO C", "EAG C", "ELL C", "HAW D", "HOL C", "TYL B"],
                 ["EAG D", "HAW E", "HOL D", "LOS D", "MAR D", "MEA B", "ROE B"]];
 
+var div_mixed = [["BRA A", "DLB A", "HAW A", "HOL A", "LOS A", "MAR A", "MAR B", "WAL A"],
+                 ["BRA B", "CHO",   "DLB B", "ELL",   "HAW B", "HOL B", "LOS B"],
+                 ["BAR A", "DLC",   "ELT",   "HAW C", "HOL C", "LON A", "MAR C"],
+                 ["DLB C", "DLB D", "LOS C", "LOS D", "MAR D", "MEA",   "WAL B"],
+		 ["BAR B", "BRA C", "HAW D", "HAW E", "HOL D", "LOS E"]];
+ 
 function update_teams(div_spec) {
 
     var i;
@@ -97,14 +104,19 @@ function update_set_totals(n) {
     document.getElementById("SCA").value = away;
 }
 
+function games(id) {
+    var str = document.getElementById(id).value;
+    if (str == "") return 0; else return parseInt(str);
+}
+
 function update_game_totals() {
 
     var home = 0;
     var away = 0;
     
     for (var i = 1; i <= 12; i++) {
-	home += parseInt(document.getElementById("SCH" + i).value);
-	away += parseInt(document.getElementById("SCA" + i).value);
+	home += games("SCH" + i);
+	away += games("SCA" + i);
     }
 
     document.getElementById("SCH").value = home; 
@@ -117,6 +129,7 @@ function select_input(element) {
 }
 
 function check(element) {
+    var parent = element.parentNode;
     if (element instanceof HTMLInputElement) {
 	if (/[0-6]/.test(element.value)) {
 	    while (element = element.nextSibling)
@@ -125,7 +138,7 @@ function check(element) {
 		    element.select();
 		    return;
 		}
-	    document.activeElement.blur();
+	    $(parent).trigger('change');
 	} else
 	    element.value = '';
     }

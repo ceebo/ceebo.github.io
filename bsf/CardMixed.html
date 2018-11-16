@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=480px"/>
-<title>Men's Match Card</title>
+<title>Mixed Match Card</title>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="jquery-ui.js"></script>
 <link rel="stylesheet" href="jquery-ui.css">
@@ -29,12 +29,12 @@ label {
         display: inline-block;
         margin-bottom: 20px;
 }
-label[for] {
+label[for], label.choice {
         text-align:   left;
         margin-right: 20px;
 }
 label[for^='PL']    { width: 110px; }
-label[for^='SC']    { width: 100px; }
+label[for^='SC']    { width: 180px; }
 label[for^='Foot']  { width: 40px; }
 
 input              { border: none; }
@@ -81,7 +81,7 @@ input[id^='SC']    { text-align: center; }
 <body>
 <form method="post" name="Card" action="acknowledge.php" target="_top" id="Card">
 <fieldset>
-<h2>Men's Match Card</h2>
+<h2>Mixed Match Card</h2>
 <hr><br>
 <select name="Week">
   <option value="" selected="selected">Select Date ...</option>
@@ -101,83 +101,126 @@ input[id^='SC']    { text-align: center; }
   <option value="14">August 13th</option>
 </select>
 &nbsp&nbsp
-<select id="Division" name="Division" onchange="update_teams(div_mens)">
+<select id="Division" name="Division" onchange="update_teams(div_mixed)">
   <option value="" selected="selected">Select Division ...</option>
   <option value="1">Division 1</option>
   <option value="2">Division 2</option>
   <option value="3">Division 3</option>
   <option value="4">Division 4</option>
   <option value="5">Division 5</option>
-  <option value="6">Division 6</option>
-  <option value="7">Division 7</option>
 </select><br/><br/>
-<select id="HT" name="HT" size="1" onchange="update_players(value, 'PLHM6')">
+<select id="HT" name="HT" size="1" onchange="update_players(value, 'PLHM4'); update_players(value, 'PLHF4');">
   <option selected="selected">Select Home Team ...</option>
   <option>Select Division First!</option>
 </select>
 <label>vs</label>
-<select id="AT" name="AT" size="1" onchange="update_players(value, 'PLAM6')">
+<select id="AT" name="AT" size="1" onchange="update_players(value, 'PLAM4'); update_players(value, 'PLAF4');">
   <option selected="selected">Select Away Team ...</option>
   <option>Select Division First!</option>
 </select>
 <br/><hr/><br/>
-<label for="PLHM1">Home Player 1:</label>
-<input id="PLHM1" name="HP1" type="text" size="30" maxlength="30"/><br/>
-<label for="PLHM2">Home Player 2:</label>
-<input id="PLHM2" name="HP2" type="text" size="30" maxlength="30"/><br/>
-<label for="PLHM3">Home Player 3:</label>
-<input id="PLHM3" name="HP3" type="text" size="30" maxlength="30"/><br/>
-<label for="PLHM4">Home Player 4:</label>
-<input id="PLHM4" name="HP4" type="text" size="30" maxlength="30"/><br/>
-<label for="PLHM5">Home Player 5:</label>
-<input id="PLHM5" name="HP5" type="text" size="30" maxlength="30"/><br/>
-<label for="PLHM6">Home Player 6:</label>
-<input id="PLHM6" name="HP6" type="text" size="30" maxlength="30"/><br/>
+<label for="PLHF1">Home Lady 1:</label>
+<input id="PLHF1" name="HF1" type="text" size="30" maxlength="30"/><br/>
+<label for="PLHM1">Home Man 1:</label>
+<input id="PLHM1" name="HM1" type="text" size="30" maxlength="30"/><br/>
+<label for="PLHF2">Home Lady 2:</label>
+<input id="PLHF2" name="HF2" type="text" size="30" maxlength="30"/><br/>
+<label for="PLHM2">Home Man 2:</label>
+<input id="PLHM2" name="HM2" type="text" size="30" maxlength="30"/><br/>
+<label for="PLHF3">Home Lady 3:</label>
+<input id="PLHF3" name="HF3" type="text" size="30" maxlength="30"/><br/>
+<label for="PLHM3">Home Man 3:</label>
+<input id="PLHM3" name="HM3" type="text" size="30" maxlength="30"/><br/>
+<label for="PLHF4">Home Lady 4:</label>
+<input id="PLHF4" name="HF4" type="text" size="30" maxlength="30"/><br/>
+<label for="PLHM4">Home Man 4:</label>
+<input id="PLHM4" name="HM4" type="text" size="30" maxlength="30"/><br/>
 <hr><br>
-<label for="PLAM1">Away Player 1:</label>
-<input id="PLAM1" name="AP1" type="text" size="30" maxlength="30"/><br/>
-<label for="PLAM2">Away Player 2:</label>
-<input id="PLAM2" name="AP2" type="text" size="30" maxlength="30"/><br/>
-<label for="PLAM3">Away Player 3:</label>
-<input id="PLAM3" name="AP3" type="text" size="30" maxlength="30"/><br/>
-<label for="PLAM4">Away Player 4:</label>
-<input id="PLAM4" name="AP4" type="text" size="30" maxlength="30"/><br/>
-<label for="PLAM5">Away Player 5:</label>
-<input id="PLAM5" name="AP5" type="text" size="30" maxlength="30"/><br/>
-<label for="PLAM6">Away Player 6:</label>
-<input id="PLAM6" name="AP6" type="text" size="30" maxlength="30"/><br/>
-<hr><br>
+<label for="PLAF1">Away Lady 1:</label>
+<input id="PLAF1" name="AF1" type="text" size="30" maxlength="30"/><br/>
+<label for="PLAM1">Away Man 1:</label>
+<input id="PLAM1" name="AM1" type="text" size="30" maxlength="30"/><br/>
+<label for="PLAF2">Away Lady 2:</label>
+<input id="PLAF2" name="AF2" type="text" size="30" maxlength="30"/><br/>
+<label for="PLAM2">Away Man 2:</label>
+<input id="PLAM2" name="AM2" type="text" size="30" maxlength="30"/><br/>
+<label for="PLAF3">Away Lady 3:</label>
+<input id="PLAF3" name="AF3" type="text" size="30" maxlength="30"/><br/>
+<label for="PLAM3">Away Man 3:</label>
+<input id="PLAM3" name="AM3" type="text" size="30" maxlength="30"/><br/>
+<label for="PLAF4">Away Lady 4:</label>
+<input id="PLAF4" name="AF4" type="text" size="30" maxlength="30"/><br/>
+<label for="PLAM4">Away Man 4:</label>
+<input id="PLAM4" name="AM4" type="text" size="30" maxlength="30"/><br/>
+<hr/><br/>
+<label>Specify the partners of ladies and men #1:</label><br/><br/>
+<label class="choice">Home Lady 1 plays with:</label>
+<select name="HFC">
+  <option value="2">Home Lady 2</option>
+  <option value="3">Home Lady 3</option>
+  <option value="4">Home Lady 4</option>
+</select><br/>
+<label class="choice">Away Lady 1 plays with:</label>
+<select name="AFC">
+  <option value="2">Away Lady 2</option>
+  <option value="3">Away Lady 3</option>
+  <option value="4">Away Lady 4</option>
+</select><br/>
+<label class="choice">Home Man 1 plays with:</label>
+<select name="HMC">
+  <option value="2">Home Man 2</option>
+  <option value="3">Home Man 3</option>
+  <option value="4">Home Man 4</option>
+</select><br/>
+<label class="choice">Away Man 1 plays with:<quad></label>
+<select name="AMC">
+  <option value="2">Away Man 2</option>
+  <option value="3">Away Man 3</option>
+  <option value="4">Away Man 4</option>
+</select><br/>
+<hr/><br/>
 <div onclick="select_input(event.target)"
-     onchange="update_set_totals(9)"
+     onchange="update_game_totals()"
      oninput="check(event.target)">
-<label>Enter results; H then A</label><br/><br/>
-<label for="SCH1">1 v 1</label>
+<label>Enter mixed results; H then A</label><br/><br/>
+<label for="SCH1">Mixed Set 1</label>
 <input id="SCH1" name="H1" type="text" size="2" maxlength="1"/>&nbsp;-
 <input id="SCA1" name="A1" type="text" size="2" maxlength="1"/><br/>
-<label for="SCH2">1 v 2</label>
+<label for="SCH2">Mixed Set 2</label>
 <input id="SCH2" name="H2" type="text" size="2" maxlength="1"/>&nbsp;-
 <input id="SCA2" name="A2" type="text" size="2" maxlength="1"/><br/>
-<label for="SCH3">1 v 3</label>
+<label for="SCH3">Mixed Set 3</label>
 <input id="SCH3" name="H3" type="text" size="2" maxlength="1"/>&nbsp;-
 <input id="SCA3" name="A3" type="text" size="2" maxlength="1"/><br/>
-<label for="SCH4">2 v 1</label>
+<label for="SCH4">Mixed Set 4</label>
 <input id="SCH4" name="H4" type="text" size="2" maxlength="1"/>&nbsp;-
-<input id="SCA4" name="A4" type="text" size="2" maxlength="1"/><br/>
-<label for="SCH5">2 v 2</label>
+<input id="SCA4" name="A4" type="text" size="2" maxlength="1"/><hr/><br/>
+<label>Ladies doubles; Lady 1 always belongs to Pair 1</label><br/><br/>
+<label for="SCH5">Home Pair 1 v Away Pair 1</label>
 <input id="SCH5" name="H5" type="text" size="2" maxlength="1"/>&nbsp;-
 <input id="SCA5" name="A5" type="text" size="2" maxlength="1"/><br/>
-<label for="SCH6">2 v 3</label>
+<label for="SCH6">Home Pair 1 v Away Pair 2</label>
 <input id="SCH6" name="H6" type="text" size="2" maxlength="1"/>&nbsp;-
 <input id="SCA6" name="A6" type="text" size="2" maxlength="1"/><br/>
-<label for="SCH7">3 v 1</label>
+<label for="SCH7">Home Pair 2 v Away Pair 1</label>
 <input id="SCH7" name="H7" type="text" size="2" maxlength="1"/>&nbsp;-
 <input id="SCA7" name="A7" type="text" size="2" maxlength="1"/><br/>
-<label for="SCH8">3 v 2</label>
+<label for="SCH8">Home Pair 2 v Away Pair 2</label>
 <input id="SCH8" name="H8" type="text" size="2" maxlength="1"/>&nbsp;-
-<input id="SCA8" name="A8" type="text" size="2" maxlength="1"/><br/>
-<label for="SCH9">3 v 3</label>
+<input id="SCA8" name="A8" type="text" size="2" maxlength="1"/><hr/><br/>
+<label>Men's doubles; Man 1 always belongs to Pair 1</label><br/><br/>
+<label for="SCH9">Home Pair 1 v Away Pair 1</label>
 <input id="SCH9" name="H9" type="text" size="2" maxlength="1"/>&nbsp;-
 <input id="SCA9" name="A9" type="text" size="2" maxlength="1"/><br/>
+<label for="SCH10">Home Pair 1 v Away Pair 2</label>
+<input id="SCH10" name="H10" type="text" size="2" maxlength="1"/>&nbsp;-
+<input id="SCA10" name="A10" type="text" size="2" maxlength="1"/><br/>
+<label for="SCH11">Home Pair 2 v Away Pair 1</label>
+<input id="SCH11" name="H11" type="text" size="2" maxlength="1"/>&nbsp;-
+<input id="SCA11" name="A11" type="text" size="2" maxlength="1"/><br/>
+<label for="SCH12">Home Pair 2 v Away Pair 2</label>
+<input id="SCH12" name="H12" type="text" size="2" maxlength="1"/>&nbsp;-
+<input id="SCA12" name="A12" type="text" size="2" maxlength="1"/><br/>
 </div>
 <hr/><br/>
 <label for="SCH">Match score:</label>
