@@ -11,10 +11,10 @@
 <style>
 body {
 	width: 480px;
-	background-color: #BBFFFF;
+	background-color: #FFC0CB;
 }
 fieldset{
-	background-color: #BBFFFF;
+	background-color: #FFC0CB;
 	border: none;
         padding-bottom: 10px;
         text-align: center;
@@ -78,12 +78,12 @@ input[id^='SC']    { text-align: center; }
 }
 </style>
 </head>
-<body>
-<form method="post" name="Card" action="acknowledge.php" target="_top" id="Card">
+<body onload="update_teams(div_mixed);">
+<form method="post" name="Card" action="acknowledge.php" target="_top" id="Card" onsubmit="return validate_scores(12);">
 <fieldset>
 <h2>Mixed Match Card</h2>
 <hr><br>
-<select name="Week">
+<select name="Week" required>
   <option value="" selected="selected">Select Date ...</option>
   <option value="1">April 23rd</option>
   <option value="2">April 30th</option>
@@ -101,7 +101,7 @@ input[id^='SC']    { text-align: center; }
   <option value="14">August 13th</option>
 </select>
 &nbsp&nbsp
-<select id="Division" name="Division" onchange="update_teams(div_mixed)">
+<select id="Division" name="Division" required onchange="update_teams(div_mixed)">
   <option value="" selected="selected">Select Division ...</option>
   <option value="1">Division 1</option>
   <option value="2">Division 2</option>
@@ -109,49 +109,49 @@ input[id^='SC']    { text-align: center; }
   <option value="4">Division 4</option>
   <option value="5">Division 5</option>
 </select><br/><br/>
-<select id="HT" name="HT" size="1" onchange="update_players(value, 'PLHM4'); update_players(value, 'PLHF4');">
-  <option selected="selected">Select Home Team ...</option>
+<select id="HT" name="HT" required size="1" onchange="update_players(value, 'PLHM4'); update_players(value, 'PLHF4');">
+  <option value="" selected="selected">Select Home Team ...</option>
   <option>Select Division First!</option>
 </select>
 <label>vs</label>
-<select id="AT" name="AT" size="1" onchange="update_players(value, 'PLAM4'); update_players(value, 'PLAF4');">
-  <option selected="selected">Select Away Team ...</option>
+<select id="AT" name="AT" required size="1" onchange="update_players(value, 'PLAM4'); update_players(value, 'PLAF4');">
+  <option value="" selected="selected">Select Away Team ...</option>
   <option>Select Division First!</option>
 </select>
 <br/><hr/><br/>
 <label for="PLHF1">Home Lady 1:</label>
-<input id="PLHF1" name="HF1" type="text" size="30" maxlength="30"/><br/>
+<input id="PLHF1" name="HF1" type="text" required size="30" maxlength="30"/><br/>
 <label for="PLHM1">Home Man 1:</label>
-<input id="PLHM1" name="HM1" type="text" size="30" maxlength="30"/><br/>
+<input id="PLHM1" name="HM1" type="text" required size="30" maxlength="30"/><br/>
 <label for="PLHF2">Home Lady 2:</label>
-<input id="PLHF2" name="HF2" type="text" size="30" maxlength="30"/><br/>
+<input id="PLHF2" name="HF2" type="text" required size="30" maxlength="30"/><br/>
 <label for="PLHM2">Home Man 2:</label>
-<input id="PLHM2" name="HM2" type="text" size="30" maxlength="30"/><br/>
+<input id="PLHM2" name="HM2" type="text" required size="30" maxlength="30"/><br/>
 <label for="PLHF3">Home Lady 3:</label>
-<input id="PLHF3" name="HF3" type="text" size="30" maxlength="30"/><br/>
+<input id="PLHF3" name="HF3" type="text" required size="30" maxlength="30"/><br/>
 <label for="PLHM3">Home Man 3:</label>
-<input id="PLHM3" name="HM3" type="text" size="30" maxlength="30"/><br/>
+<input id="PLHM3" name="HM3" type="text" required size="30" maxlength="30"/><br/>
 <label for="PLHF4">Home Lady 4:</label>
-<input id="PLHF4" name="HF4" type="text" size="30" maxlength="30"/><br/>
+<input id="PLHF4" name="HF4" type="text" required size="30" maxlength="30"/><br/>
 <label for="PLHM4">Home Man 4:</label>
-<input id="PLHM4" name="HM4" type="text" size="30" maxlength="30"/><br/>
+<input id="PLHM4" name="HM4" type="text" required size="30" maxlength="30"/><br/>
 <hr><br>
 <label for="PLAF1">Away Lady 1:</label>
-<input id="PLAF1" name="AF1" type="text" size="30" maxlength="30"/><br/>
+<input id="PLAF1" name="AF1" type="text" required size="30" maxlength="30"/><br/>
 <label for="PLAM1">Away Man 1:</label>
-<input id="PLAM1" name="AM1" type="text" size="30" maxlength="30"/><br/>
+<input id="PLAM1" name="AM1" type="text" required size="30" maxlength="30"/><br/>
 <label for="PLAF2">Away Lady 2:</label>
-<input id="PLAF2" name="AF2" type="text" size="30" maxlength="30"/><br/>
+<input id="PLAF2" name="AF2" type="text" required size="30" maxlength="30"/><br/>
 <label for="PLAM2">Away Man 2:</label>
-<input id="PLAM2" name="AM2" type="text" size="30" maxlength="30"/><br/>
+<input id="PLAM2" name="AM2" type="text" required size="30" maxlength="30"/><br/>
 <label for="PLAF3">Away Lady 3:</label>
-<input id="PLAF3" name="AF3" type="text" size="30" maxlength="30"/><br/>
+<input id="PLAF3" name="AF3" type="text" required size="30" maxlength="30"/><br/>
 <label for="PLAM3">Away Man 3:</label>
-<input id="PLAM3" name="AM3" type="text" size="30" maxlength="30"/><br/>
+<input id="PLAM3" name="AM3" type="text" required size="30" maxlength="30"/><br/>
 <label for="PLAF4">Away Lady 4:</label>
-<input id="PLAF4" name="AF4" type="text" size="30" maxlength="30"/><br/>
+<input id="PLAF4" name="AF4" type="text" required size="30" maxlength="30"/><br/>
 <label for="PLAM4">Away Man 4:</label>
-<input id="PLAM4" name="AM4" type="text" size="30" maxlength="30"/><br/>
+<input id="PLAM4" name="AM4" type="text" required size="30" maxlength="30"/><br/>
 <hr/><br/>
 <label>Specify the partners of ladies and men #1:</label><br/><br/>
 <label class="choice">Home Lady 1 plays with:</label>
@@ -230,9 +230,9 @@ input[id^='SC']    { text-align: center; }
 <label for="remarks">Any remarks or comments?</label><br/>
 <textarea id="remarks" name="remarks" cols="50" rows="3"></textarea><br/><br/>
 <label for="FootName">Name:</label>
-<input id="Name" name="Name" type="text" size="40" maxlength="40"/><br/>
+<input id="Name" name="Name" type="text" required size="40" maxlength="40"/><br/>
 <label for="FootTel">Tel:</label>
-<input id="FootTel" name="Tel" type="text" size="40" maxlength="40"/>
+<input id="FootTel" name="Tel" type="text" required size="40" maxlength="40"/>
 <p>
   <input class="btn" name="submit" type="submit" value="Submit">
 </p>

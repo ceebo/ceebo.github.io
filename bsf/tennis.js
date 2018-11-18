@@ -82,16 +82,26 @@ function update_teams(div_spec) {
     }
 }
 
+function unplayed(p1, p2) {
+
+    var g1 = document.getElementById(p1).value;
+    var g2 = document.getElementById(p2).value;
+
+    return (g1 == "" && g2 == "") || (g1 == 0 && g2 == 0);
+}
+
 function won_set(p1, p2) {
 
     var g1 = document.getElementById(p1).value;
     var g2 = document.getElementById(p2).value;
 
-    return g1 > g2 && (g1 == 6 || g1 == 8);
+    return g1 != "" && g2 != "" && g1 > g2 && (g1 == 6 || g1 == 8);
 }
       
 function update_set_totals(n) {
 
+    reset_border();
+    
     var home = 0;
     var away = 0;
     
@@ -111,6 +121,8 @@ function games(id) {
 
 function update_game_totals() {
 
+    reset_border();
+
     var home = 0;
     var away = 0;
     
@@ -122,7 +134,41 @@ function update_game_totals() {
     document.getElementById("SCH").value = home; 
     document.getElementById("SCA").value = away;
 }
-    
+
+function set_border(i, str) {
+    document.getElementById("SCH" + i).style.border = str;
+    document.getElementById("SCA" + i).style.border = str;
+}
+
+var red_border = 0;
+
+function reset_border() {
+    if (red_border) 
+	set_border(red_border, "none");
+    red_border = 0;
+}
+
+function validate_scores(n) {
+
+    reset_border();
+    var all_played = true;
+
+    for (var i = 1; i <= n; i++) {
+	if (unplayed("SCH"+i, "SCA"+i))
+	    all_played = false;
+	else if (won_set("SCH"+i, "SCA"+i) + won_set("SCA"+i, "SCH"+i) != 1) {
+	    alert("There is an invalid set score");
+	    document.getElementById("SCH" + i).focus();
+	    document.getElementById("SCH" + i).select();
+	    set_border(i, "thin solid red");
+	    red_border = i;
+	    return false;
+	}
+    }
+
+    return all_played || confirm("Some sets were unplayed. Is this correct?\n\nPress Cancel to return. Press OK to submit.");
+}
+
 function select_input(element) {
     if (element instanceof HTMLInputElement)
 	element.select();
@@ -148,7 +194,7 @@ function update_players(teamname, last_input) {
 
     var prefix = "#" + last_input.slice(0, -1);
     var num    = parseInt(last_input.slice(-1));
-    var jsfm   = last_input.slice(2, -1);
+    var jsfm   = last_input.slice(3, -1);
 
     var suffix = teamname.slice(-2);
     if (   suffix == " A" || suffix == " B" || suffix == " C"
