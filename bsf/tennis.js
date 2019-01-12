@@ -38,6 +38,12 @@ var div_mixed = [["BRA A", "DLB A", "HAW A", "HOL A", "LOS A", "MAR A", "MAR B",
                  ["DLB C", "DLB D", "LOS C", "LOS D", "MAR D", "MEA",   "WAL B"],
 		 ["BAR B", "BRA C", "HAW D", "HAW E", "HOL D", "LOS E"]];
  
+var div_junior = [["BRA A", "DLB A", "HAW A", "HOL A", "LOS A", "MAR A", "MAR B", "WAL A"],
+                  ["BRA B", "CHO",   "DLB B", "ELL",   "HAW B", "HOL B", "LOS B"],
+                  ["BAR A", "DLC",   "ELT",   "HAW C", "HOL C", "LON A", "MAR C"],
+                  ["DLB C", "DLB D", "LOS C", "LOS D", "MAR D", "MEA",   "WAL B"],
+ 	 	  ["BAR B", "BRA C", "HAW D", "HAW E", "HOL D", "LOS E"]];
+ 
 function update_teams(div_spec) {
 
     var i;
@@ -95,7 +101,19 @@ function won_set(p1, p2) {
     var g1 = document.getElementById(p1).value;
     var g2 = document.getElementById(p2).value;
 
-    return g1 != "" && g2 != "" && g1 > g2 && (g1 == 6 || g1 == 8);
+    if (g1 == "" || g2 == "" || g1 < g2)
+	return 0;
+
+    if (g1 == 6 && g2 == 6)
+	return 0.5;
+
+    if (g1 == 6 && g2 <= 4)
+	return 1;
+
+    if (g1 == 7 && (g2 == 5 || g2 == 6))
+	return 1;
+
+    return 0;
 }
       
 function update_set_totals(n) {
@@ -177,7 +195,7 @@ function select_input(element) {
 function check(element) {
     var parent = element.parentNode;
     if (element instanceof HTMLInputElement) {
-	if (/[0-6]/.test(element.value)) {
+	if (/[0-7]/.test(element.value)) {
 	    while (element = element.nextSibling)
 		if (element instanceof HTMLInputElement) {
 		    element.focus();
