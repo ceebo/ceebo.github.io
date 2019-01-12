@@ -56,7 +56,7 @@ if (isset($_POST['submit'])){
 <title>acknowlede</title>
 </head>
 
-<body
+<body>
 <?php if (isset($success) && $success){ ?>
 <h1>Thank You</h1>
 <p>Your results have been submitted</p>
