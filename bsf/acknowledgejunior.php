@@ -7,8 +7,8 @@ function won_set($a, $b) {
 $HRT = $ART = 0;
 
 for ($i = 1; $i <= 6; $i++) {
-    $HRT += won_set($_POST["H$i"], $_POST("A$i"));
-    $ART += won_set($_POST["A$i"], $_POST("H$i"));
+    $HRT += won_set($_POST["H$i"], $_POST["A$i"]);
+    $ART += won_set($_POST["A$i"], $_POST["H$i"]);
 }
 
 if (isset($_POST['submit'])){
