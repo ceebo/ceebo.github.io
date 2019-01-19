@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=480px"/>
+<title>Afternoon League Match Card</title>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="jquery-ui.js"></script>
+<link rel="stylesheet" href="jquery-ui.css">
+<script type="text/javascript" src="tennis.js"></script>
+<style>
+body {
+	width: 480px;
+	background-color: #b3ffd9;
+}
+fieldset{
+	background-color: #b3ffd9;
+	border: none;
+        padding-bottom: 10px;
+        text-align: center;
+}
+h2 { font-family:Arial, Helvetica, sans-serif;
+	text-align:center;
+}
+label {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 14px;
+        font-weight: bold;
+        display: inline-block;
+        margin-bottom: 20px;
+}
+label[for], label.choice {
+        text-align:   left;
+        margin-right: 20px;
+}
+label[for^='PL']    { width: 110px; }
+label[for^='SC']    { width: 180px; }
+label[for^='Foot']  { width: 40px; }
+
+input              { border: none; }
+input:disabled     { color: #000000; background: #F0F0F0; }
+input[id^='SC']    { text-align: center; }
+
+.home {
+	display: block;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	color: #000;
+	margin-top: 5px;
+	margin-right: 0px;
+	margin-bottom: 5px;
+	margin-left: 5px;
+	float: left;
+}
+.away {
+	display: block;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	color: #000;
+	margin-top: 5px;
+	margin-right: 0px;
+	margin-bottom: 5px;
+	margin-left: 5px;
+	float: right;
+}
+
+.btn {
+	width: 70px;
+	height: 20px;
+	color: #000;
+	background-color: #6F6;
+	font-weight: bold;
+	margin-right: 50px;
+	margin-bottom: 50px;
+	float: right;
+}
+</style>
+</head>
+<body onload="update_teams(div_after);">
+<form method="post" name="Card" action="acknowledgeafter.php" target="_top" id="Card" onsubmit="return validate_scores(6);">
+<fieldset>
+<h2>Afternoon League Match Card</h2>
+<hr><br>
+<select name="Week" required>
+  <option value="" selected="selected">Select Date ...</option>
+  <option value="1">April 23rd</option>
+  <option value="2">April 30th</option>
+  <option value="3">May 14th</option>
+  <option value="4">May 21st</option>
+  <option value="5">June 4th</option>
+  <option value="6">June 11th</option>
+  <option value="7">June 18th</option>
+  <option value="8">June 25th</option>
+  <option value="9">July 2nd</option>
+  <option value="10">July 9th</option>
+  <option value="11">July 23rd</option>
+  <option value="12">July 30th</option>
+  <option value="13">August 6th</option>
+  <option value="14">August 13th</option>
+</select>
+&nbsp&nbsp
+<select id="Division" name="Division" required onchange="update_teams(div_after)">
+  <option value="1">Division 1</option>
+</select><br/><br/>
+<select id="HT" name="HT" required size="1" onchange="update_players(value, 'PLHM2'); update_players(value, 'PLHF2');">
+  <option value="" selected="selected">Select Home Team ...</option>
+  <option>Select Division First!</option>
+</select>
+<label>vs</label>
+<select id="AT" name="AT" required size="1" onchange="update_players(value, 'PLAM2'); update_players(value, 'PLAF2');">
+  <option value="" selected="selected">Select Away Team ...</option>
+  <option>Select Division First!</option>
+</select>
+<br/><hr/><br/>
+<label for="PLHF1">Home Lady 1:</label>
+<input id="PLHF1" name="HF1" type="text" required size="30" maxlength="30"/><br/>
+<label for="PLHM1">Home Man 1:</label>
+<input id="PLHM1" name="HM1" type="text" required size="30" maxlength="30"/><br/>
+<label for="PLHF2">Home Lady 2:</label>
+<input id="PLHF2" name="HF2" type="text" required size="30" maxlength="30"/><br/>
+<label for="PLHM2">Home Man 2:</label>
+<input id="PLHM2" name="HM2" type="text" required size="30" maxlength="30"/><br/>
+<hr><br>
+<label for="PLAF1">Away Lady 1:</label>
+<input id="PLAF1" name="AF1" type="text" required size="30" maxlength="30"/><br/>
+<label for="PLAM1">Away Man 1:</label>
+<input id="PLAM1" name="AM1" type="text" required size="30" maxlength="30"/><br/>
+<label for="PLAF2">Away Lady 2:</label>
+<input id="PLAF2" name="AF2" type="text" required size="30" maxlength="30"/><br/>
+<label for="PLAM2">Away Man 2:</label>
+<input id="PLAM2" name="AM2" type="text" required size="30" maxlength="30"/><br/>
+<hr/><br/>
+<div onclick="select_input(event.target)"
+     onchange="update_game_totals(6)"
+     oninput="check(event.target)">
+<label>Enter results; H then A</label><br/><br/>
+<label for="SCH1">Mixed 1 v 1</label>
+<input id="SCH1" name="H1" type="text" size="2" maxlength="1"/>&nbsp;-
+<input id="SCA1" name="A1" type="text" size="2" maxlength="1"/><br/>
+<label for="SCH2">Mixed 2 v 2</label>
+<input id="SCH2" name="H2" type="text" size="2" maxlength="1"/>&nbsp;-
+<input id="SCA2" name="A2" type="text" size="2" maxlength="1"/><br/>
+<label for="SCH3">Mixed 1 v 2</label>
+<input id="SCH3" name="H3" type="text" size="2" maxlength="1"/>&nbsp;-
+<input id="SCA3" name="A3" type="text" size="2" maxlength="1"/><br/>
+<label for="SCH4">Mixed 2 v 1</label>
+<input id="SCH4" name="H4" type="text" size="2" maxlength="1"/>&nbsp;-
+<input id="SCA4" name="A4" type="text" size="2" maxlength="1"/><br/>
+<label for="SCH5">Ladies Doubles</label>
+<input id="SCH5" name="H5" type="text" size="2" maxlength="1"/>&nbsp;-
+<input id="SCA5" name="A5" type="text" size="2" maxlength="1"/><br/>
+<label for="SCH6">Mens Doubles</label>
+<input id="SCH6" name="H6" type="text" size="2" maxlength="1"/>&nbsp;-
+<input id="SCA6" name="A6" type="text" size="2" maxlength="1"/><br/>
+</div>
+<hr/><br/>
+<label for="SCH">Match score:</label>
+<input id="SCH" name="HRT" type="text" size="2" maxlength="1" disabled/>&nbsp;-
+<input id="SCA" name="ART" type="text" size="2" maxlength="1" disabled/><br/>
+<hr/>
+<label for="remarks">Any remarks or comments?</label><br/>
+<textarea id="remarks" name="remarks" cols="50" rows="3"></textarea><br/><br/>
+<label for="FootName">Name:</label>
+<input id="Name" name="Name" type="text" required size="40" maxlength="40"/><br/>
+<label for="FootTel">Tel:</label>
+<input id="FootTel" name="Tel" type="text" required size="40" maxlength="40"/>
+<p>
+  <input class="btn" name="submit" type="submit" value="Submit">
+</p>
+</fieldset>
+</form>
+</body>
+</html>

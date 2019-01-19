@@ -1,12 +1,13 @@
 var code_to_club = {
     "AST" : "Astley & Tyldesley",
     "BAR" : "Barrow Bridge",
+    "BEL" : "Bellingham",
     "BRA" : "Bradshaw",
     "CHO" : "Chorley",
     "CLA" : "Claremont",
     "DAR" : "Darwen",
-    "DLB" : "DL Bolton Abitare",
-    "DLC" : "DL Chorley",
+    "DLB" : "David Lloyd Abitare",
+    "DLC" : "David Lloyd (Chorley)",
     "EAG" : "Eagley",
     "ELL" : "Ellesmere",
     "ELT" : "Elton Vale",
@@ -14,13 +15,14 @@ var code_to_club = {
     "HAW" : "Hawkshaw",
     "LEI" : "Leigh",
     "LOS" : "Lostock",
-    "LON" : "Longsight St Catherine's",
+    "LON" : "Longsight St Catherines",
     "MAR" : "Markland Hill",
     "MEA" : "Meadow Hill",
     "MON" : "Monton",
     "ROE" : "Roe Green",
     "TYL" : "Tyldesley",
     "WAL" : "Walmer",
+    "WIY" : "Winstanley",
     "WIN" : "Winton"
 };
 
@@ -37,12 +39,12 @@ var div_mixed = [["BRA A", "DLB A", "HAW A", "HOL A", "LOS A", "MAR A", "MAR B",
                  ["BAR A", "DLC",   "ELT",   "HAW C", "HOL C", "LON A", "MAR C"],
                  ["DLB C", "DLB D", "LOS C", "LOS D", "MAR D", "MEA",   "WAL B"],
 		 ["BAR B", "BRA C", "HAW D", "HAW E", "HOL D", "LOS E"]];
- 
-var div_junior = [["BRA A", "DLB A", "HAW A", "HOL A", "LOS A", "MAR A", "MAR B", "WAL A"],
-                  ["BRA B", "CHO",   "DLB B", "ELL",   "HAW B", "HOL B", "LOS B"],
-                  ["BAR A", "DLC",   "ELT",   "HAW C", "HOL C", "LON A", "MAR C"],
-                  ["DLB C", "DLB D", "LOS C", "LOS D", "MAR D", "MEA",   "WAL B"],
- 	 	  ["BAR B", "BRA C", "HAW D", "HAW E", "HOL D", "LOS E"]];
+
+var div_junior = [["BEL", "BRA A", "HOL A", "MAR A", "MAR B", "WIY"],
+                  ["BRA B", "CHO",   "DLB", "HAW A", "HOL B", "LOS A"],
+                  ["HAW B", "HOL B", "LOS B", "MAR C", "TYL"]];
+
+var div_after = [["DLB A", "DLB B","HOL","LOS A","LOS B", "WAL"]];				  
  
 function update_teams(div_spec) {
 
