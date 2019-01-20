@@ -79,7 +79,7 @@ input[id^='SC']    { text-align: center; }
 </style>
 </head>
 <body onload="update_teams(div_junior);">
-<form method="post" name="Card" action="acknowledgejunior.php" target="_top" id="Card" onsubmit="return validate_scores(6);">
+<form method="post" name="Card" action="acknowledgejunior.php" target="_top" id="Card" onsubmit="return validate_scores(6, 'junior');">
 <fieldset>
 <h2>Junior Match Card</h2>
 <hr><br>
@@ -106,8 +106,6 @@ input[id^='SC']    { text-align: center; }
   <option value="1">Division 1</option>
   <option value="2">Division 2</option>
   <option value="3">Division 3</option>
-  <option value="4">Division 4</option>
-  <option value="5">Division 5</option>
 </select><br/><br/>
 <select id="HT" name="HT" required size="1" onchange="update_players(value, 'PLHJM2'); update_players(value, 'PLHJF2');">
   <option value="" selected="selected">Select Home Team ...</option>
@@ -162,8 +160,8 @@ input[id^='SC']    { text-align: center; }
 </div>
 <hr/><br/>
 <label for="SCH">Match score:</label>
-<input id="SCH" name="HRT" type="text" size="2" maxlength="1" disabled/>&nbsp;-
-<input id="SCA" name="ART" type="text" size="2" maxlength="1" disabled/><br/>
+<input id="SCH" name="HRT" type="text" size="2" maxlength="2" disabled/>&nbsp;-
+<input id="SCA" name="ART" type="text" size="2" maxlength="2" disabled/><br/>
 <hr/>
 <label for="remarks">Any remarks or comments?</label><br/>
 <textarea id="remarks" name="remarks" cols="50" rows="3"></textarea><br/><br/>

@@ -79,7 +79,7 @@ input[id^='SC']    { text-align: center; }
 </style>
 </head>
 <body onload="update_teams(div_after);">
-<form method="post" name="Card" action="acknowledgeafter.php" target="_top" id="Card" onsubmit="return validate_scores(6);">
+<form method="post" name="Card" action="acknowledgeafter.php" target="_top" id="Card" onsubmit="return validate_scores(6, 'afternoon');">
 <fieldset>
 <h2>Afternoon League Match Card</h2>
 <hr><br>
@@ -134,31 +134,31 @@ input[id^='SC']    { text-align: center; }
 <hr/><br/>
 <div onclick="select_input(event.target)"
      onchange="update_game_totals(6)"
-     oninput="check(event.target)">
+     oninput="check_after(event.target)">
 <label>Enter results; H then A</label><br/><br/>
 <label for="SCH1">Mixed 1 v 1</label>
-<input id="SCH1" name="H1" type="text" size="2" maxlength="1"/>&nbsp;-
-<input id="SCA1" name="A1" type="text" size="2" maxlength="1"/><br/>
+<input id="SCH1" name="H1" type="text" size="2" maxlength="2"/>&nbsp;-
+<input id="SCA1" name="A1" type="text" size="2" maxlength="2"/><br/>
 <label for="SCH2">Mixed 2 v 2</label>
-<input id="SCH2" name="H2" type="text" size="2" maxlength="1"/>&nbsp;-
-<input id="SCA2" name="A2" type="text" size="2" maxlength="1"/><br/>
+<input id="SCH2" name="H2" type="text" size="2" maxlength="2"/>&nbsp;-
+<input id="SCA2" name="A2" type="text" size="2" maxlength="2"/><br/>
 <label for="SCH3">Mixed 1 v 2</label>
-<input id="SCH3" name="H3" type="text" size="2" maxlength="1"/>&nbsp;-
-<input id="SCA3" name="A3" type="text" size="2" maxlength="1"/><br/>
+<input id="SCH3" name="H3" type="text" size="2" maxlength="2"/>&nbsp;-
+<input id="SCA3" name="A3" type="text" size="2" maxlength="2"/><br/>
 <label for="SCH4">Mixed 2 v 1</label>
-<input id="SCH4" name="H4" type="text" size="2" maxlength="1"/>&nbsp;-
-<input id="SCA4" name="A4" type="text" size="2" maxlength="1"/><br/>
+<input id="SCH4" name="H4" type="text" size="2" maxlength="2"/>&nbsp;-
+<input id="SCA4" name="A4" type="text" size="2" maxlength="2"/><br/>
 <label for="SCH5">Ladies Doubles</label>
-<input id="SCH5" name="H5" type="text" size="2" maxlength="1"/>&nbsp;-
-<input id="SCA5" name="A5" type="text" size="2" maxlength="1"/><br/>
+<input id="SCH5" name="H5" type="text" size="2" maxlength="2"/>&nbsp;-
+<input id="SCA5" name="A5" type="text" size="2" maxlength="2"/><br/>
 <label for="SCH6">Mens Doubles</label>
-<input id="SCH6" name="H6" type="text" size="2" maxlength="1"/>&nbsp;-
-<input id="SCA6" name="A6" type="text" size="2" maxlength="1"/><br/>
+<input id="SCH6" name="H6" type="text" size="2" maxlength="2"/>&nbsp;-
+<input id="SCA6" name="A6" type="text" size="2" maxlength="2"/><br/>
 </div>
 <hr/><br/>
 <label for="SCH">Match score:</label>
-<input id="SCH" name="HRT" type="text" size="2" maxlength="1" disabled/>&nbsp;-
-<input id="SCA" name="ART" type="text" size="2" maxlength="1" disabled/><br/>
+<input id="SCH" name="HRT" type="text" size="2" maxlength="2" disabled/>&nbsp;-
+<input id="SCA" name="ART" type="text" size="2" maxlength="2" disabled/><br/>
 <hr/>
 <label for="remarks">Any remarks or comments?</label><br/>
 <textarea id="remarks" name="remarks" cols="50" rows="3"></textarea><br/><br/>

@@ -79,7 +79,7 @@ input[id^='SC']    { text-align: center; }
 </style>
 </head>
 <body onload="update_teams(div_mixed);">
-<form method="post" name="Card" action="acknowledgemixed.php" target="_top" id="Card" onsubmit="return validate_scores(12);">
+<form method="post" name="Card" action="acknowledgemixed.php" target="_top" id="Card" onsubmit="return validate_scores(12, 'mixed');">
 <fieldset>
 <h2>Mixed Match Card</h2>
 <hr><br>
@@ -180,7 +180,7 @@ input[id^='SC']    { text-align: center; }
 </select><br/>
 <hr/><br/>
 <div onclick="select_input(event.target)"
-     onchange="update_game_totals()"
+     onchange="update_game_totals(12)"
      oninput="check(event.target)">
 <label>Enter mixed results; H then A</label><br/><br/>
 <label for="SCH1">Mixed Set 1</label>
@@ -224,8 +224,8 @@ input[id^='SC']    { text-align: center; }
 </div>
 <hr/><br/>
 <label for="SCH">Match score:</label>
-<input id="SCH" name="HRT" type="text" size="2" maxlength="1" disabled/>&nbsp;-
-<input id="SCA" name="ART" type="text" size="2" maxlength="1" disabled/><br/>
+<input id="SCH" name="HRT" type="text" size="2" maxlength="2" disabled/>&nbsp;-
+<input id="SCA" name="ART" type="text" size="2" maxlength="2" disabled/><br/>
 <hr/>
 <label for="remarks">Any remarks or comments?</label><br/>
 <textarea id="remarks" name="remarks" cols="50" rows="3"></textarea><br/><br/>

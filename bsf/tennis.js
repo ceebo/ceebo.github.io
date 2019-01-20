@@ -103,21 +103,48 @@ function won_set(p1, p2) {
     var g1 = document.getElementById(p1).value;
     var g2 = document.getElementById(p2).value;
 
-    if (g1 == "" || g2 == "" || g1 < g2)
+    if (g1 == "" || g2 == "")
 	return 0;
 
     if (g1 == 6 && g2 == 6)
 	return 0.5;
 
-    if (g1 == 6 && g2 <= 4)
-	return 1;
-
-    if (g1 == 7 && (g2 == 5 || g2 == 6))
-	return 1;
-
-    return 0;
+    return g1 >= 6 && g1 > g2;
 }
-      
+
+function is_valid(p1, p2, type) {
+
+    var g1 = document.getElementById(p1).value;
+    var g2 = document.getElementById(p2).value;
+
+    if (g1 == "" || g2 == "")
+	return false;
+
+    if (type == "afternoon")
+	return true;
+    
+    if (g1 < 6 && g2 < 6)
+	return false;
+
+    if (g1 > 7 || g2 > 7)
+	return false;
+
+    tot = parseInt(g1) + parseInt(g2);
+
+    if ((g1 == 7 || g2 == 7) && tot < 12)
+	return false;
+    
+    if (type == "mens")
+	return tot <= 10 || (tot >= 12 && g1 != g2);
+    else if (type == "mixed")
+	return g1 <= 6 && g2 <= 6 && tot <= 11;
+    else if (type == "junior")
+	return tot <= 10 || tot == 12;
+
+    // unknown type
+    return false;
+}
+
 function update_set_totals(n) {
 
     reset_border();
@@ -139,14 +166,14 @@ function games(id) {
     if (str == "") return 0; else return parseInt(str);
 }
 
-function update_game_totals() {
+function update_game_totals(n) {
 
     reset_border();
 
     var home = 0;
     var away = 0;
     
-    for (var i = 1; i <= 12; i++) {
+    for (var i = 1; i <= n; i++) {
 	home += games("SCH" + i);
 	away += games("SCA" + i);
     }
@@ -168,15 +195,15 @@ function reset_border() {
     red_border = 0;
 }
 
-function validate_scores(n) {
+function validate_scores(n, type) {
 
     reset_border();
     var all_played = true;
-
+    
     for (var i = 1; i <= n; i++) {
 	if (unplayed("SCH"+i, "SCA"+i))
 	    all_played = false;
-	else if (won_set("SCH"+i, "SCA"+i) + won_set("SCA"+i, "SCH"+i) != 1) {
+	else if (!is_valid("SCH"+i, "SCA"+i, type)) {
 	    alert("There is an invalid set score");
 	    document.getElementById("SCH" + i).focus();
 	    document.getElementById("SCH" + i).select();
@@ -207,6 +234,15 @@ function check(element) {
 	    $(parent).trigger('change');
 	} else
 	    element.value = '';
+    }
+}
+
+function check_after(element) {
+    if (element instanceof HTMLInputElement) {
+	if (/^[0-9]*$/.test(element.value)) {
+	    //do nothing
+	} else
+	    element.value = element.value.replace(/\D/g,'');
     }
 }
 

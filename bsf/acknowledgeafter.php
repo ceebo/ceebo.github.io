@@ -21,8 +21,8 @@ if (isset($_POST['submit'])){
 	$message .= ', '.$_POST['AM1'];
 	$message .= ', '.$_POST['AF2'];
 	$message .= ', '.$_POST['AM2']."\r\n\r\n";
-	$message .= 'Home Total: '.$_POST['HRT'];
-	$message .= '  Away Total: '.$_POST['ART']."\r\n\r\n";
+	$message .= 'Home Total: '.$HRT;
+	$message .= '  Away Total: '.$ART."\r\n\r\n";
 	$message .= 'Remarks: '.$_POST['remarks']."\r\n\r\n";
 	$message .= 'Completed by '.$_POST['Name']."\r\n\r\n";
 	$message .= 'Tel. '.$_POST['Tel']."\r\n\r\n";
