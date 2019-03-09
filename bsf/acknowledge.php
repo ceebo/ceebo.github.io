@@ -1,7 +1,7 @@
 <?php
 
 function won_set($a, $b) {
-    return $a > $b && ($a == 6 || $a == 8);
+    return ($a == 6 && $b <= 4) || ($a == 7 && ($b == 5 || $b == 6));
 }
 
 $HT = array(0, 0, 0, 0);
